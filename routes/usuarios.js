@@ -4,8 +4,7 @@ const {
     getUsuarios,
     putUsuario,
     postUsuario,
-    deleteUsuario,
-    patchUsuario
+    deleteUsuario
 } = require('../controller/usuarios');
 const {
     esRoleValido,
@@ -34,9 +33,11 @@ router.post('/', [
     check('role').custom(esRoleValido),
     validarCampos
 ], postUsuario);
-router.delete('/', deleteUsuario);
-router.patch('/', patchUsuario);
-
+router.delete('/:id', [
+    check('id', 'Esto no es un ID valido.').isMongoId(),
+    check('id').custom(usuarioById),
+    validarCampos
+], deleteUsuario);
 
 
 module.exports = router;

@@ -3,8 +3,6 @@ const { HashCreator } = require('../helpers/hash-creator');
 
 const Usuario = require('../models/usuario');
 
-
-
 const getUsuarios = async(req = request, res = response) => {
 
     const { limite = 5, desde = 0 } = req.query;
@@ -55,23 +53,20 @@ const postUsuario = async(req = request, res = response) => {
     });
 };
 
-const deleteUsuario = (req = request, res = response) => {
+const deleteUsuario = async(req = request, res = response) => {
+
+    const { id } = req.params;
+
+    const delUser = await Usuario.findByIdAndUpdate(id, { estado: false });
     res.json({
-        msg: 'Peticion Delete a mi api desde el controller'
+        msg: 'API Delete',
+        delUser
     });
 };
-
-const patchUsuario = (req = request, res = response) => {
-    res.json({
-        msg: 'Peticion Patch a mi api desde el controller'
-    });
-};
-
 
 module.exports = {
     getUsuarios,
     putUsuario,
     postUsuario,
-    deleteUsuario,
-    patchUsuario
+    deleteUsuario
 };
