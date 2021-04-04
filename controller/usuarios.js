@@ -57,10 +57,10 @@ const deleteUsuario = async(req = request, res = response) => {
 
     const { id } = req.params;
 
-    const delUser = await Usuario.findByIdAndUpdate(id, { estado: false });
+    const usuario = await Usuario.findByIdAndUpdate(id, { estado: false });
+
     res.json({
-        msg: 'API Delete',
-        delUser
+        usuario
     });
 };
 
